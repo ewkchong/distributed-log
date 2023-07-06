@@ -25,11 +25,13 @@ import (
 	"go.uber.org/zap"
 )
 
+//  NOTE: run tests with debug using "go test -v -debug=true"
 var debug = flag.Bool("debug", false, "Enable observability for debugging")
 
 //  NOTE: Go now calls TestMain(m) instead of running the tests directly
 func TestMain(m *testing.M) {
 	flag.Parse()
+
 	if *debug {
 		logger, err := zap.NewDevelopment()
 		if err != nil {
@@ -180,6 +182,12 @@ func setupTest(t *testing.T, fn func(*Config)) (
 		rootConn.Close()
 		nobodyConn.Close()
 		l.Close()
+		if telemetryExporter != nil {
+			//  NOTE: Sleep here to allow telemtry exporter to flush data to disk
+			time.Sleep(2500 * time.Millisecond)
+			telemetryExporter.Stop()
+			telemetryExporter.Close()
+		}
 	}
 }
 
