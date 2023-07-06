@@ -13,6 +13,8 @@ var (
 	RootClientKeyFile = configFile("root-client-key.pem")
 	NobodyClientCertFile = configFile("nobody-client.pem")
 	NobodyClientKeyFile = configFile("nobody-client-key.pem")
+	ACLModelFile = configFile("model.conf")
+	ACLPolicyFile = configFile("policy.csv")
 )
 
 func configFile(filename string) string {
