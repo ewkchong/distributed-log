@@ -138,16 +138,6 @@ func NewGRPCServer(config *Config, opts ...grpc.ServerOption) (*grpc.Server, err
 		return nil, err
 	}
 
-	// opts = append(opts, grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
-	// 	grpc_ctxtags.StreamServerInterceptor(),
-	// 	grpc_zap.StreamServerInterceptor(logger, zapOpts...),
-	// 	grpc_auth.StreamServerInterceptor(authenticate),
-	// )), grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
-	// 	grpc_ctxtags.UnaryServerInterceptor(),
-	// 	grpc_zap.UnaryServerInterceptor(logger, zapOpts...),
-	// 	grpc_auth.UnaryServerInterceptor(authenticate),
-	// )))
-
 	opts = append(opts,
 		grpc.StreamInterceptor(
 			grpc_middleware.ChainStreamServer(
